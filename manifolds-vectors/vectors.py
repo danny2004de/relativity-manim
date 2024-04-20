@@ -168,6 +168,7 @@ class Vectors3(Scene):
         self.wait()
         self.play(DrawBorderThenFill(r1), DrawBorderThenFill(r2), run_time=0.75)
         self.play(DrawBorderThenFill(r3), DrawBorderThenFill(r4), run_time=0.75)
+        self.wait()
 
 
 
