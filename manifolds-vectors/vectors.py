@@ -169,6 +169,57 @@ class Vectors3(Scene):
         self.play(DrawBorderThenFill(r1), DrawBorderThenFill(r2), run_time=0.75)
         self.play(DrawBorderThenFill(r3), DrawBorderThenFill(r4), run_time=0.75)
         self.wait()
+        self.play(FadeOut(r1), FadeOut(r2), FadeOut(r3), FadeOut(r4))
+        self.wait()
+        m3 = Tex(r'The basis depends on our choice of coordinates, but\\the vectors themselves can be described in any basis.\\', r'How can we transform between bases?')
+        m3[1].set_color(ORANGE)
+        m3.next_to(m2, DOWN)
+        self.play(Write(m3[0]))
+        self.wait()
+        self.play(Write(m3[1]))
+        self.wait()
 
+class Vectors4(Scene):
+    def construct(self):
+        m1 = MathTex(r"{V'}", r'^\mu =', r"V", r"^\nu {\partial ", r"{x'}", r"^\mu \over \partial ", r"x", r"^\nu}")
+        for i, color in [(0, BLUE), (2, MAROON), (4, BLUE), (6, MAROON)]:
+            m1[i].set_color(color)
+        self.play(Write(m1))
+        self.wait()
+        self.play(FadeOut(m1))
+        m2 = MathTex(r'\text{\textbf{V}}', '=', 'V', r'^\nu {\partial \over \partial ', 'x', r'^\nu}')
+        m3 = MathTex(r'\text{\textbf{V}}', '=', "{V'}", r'^\mu {\partial \over \partial ', "{x'}", r'^\mu}')
+        v1 = VGroup(m2, m3)
+        v1.arrange(DOWN)
+        m4 = MathTex(r'\text{\textbf{V}}', '=', 'V', r'^x {\partial \over \partial ', 'x', r'} +', 'V', r'^y {\partial \over \partial ', 'y', r'}')
+        m5 = MathTex(r'\text{\textbf{V}}', '=', "{V'}", r'^r {\partial \over \partial ', 'r', r'} +', "{V'}", r'^\theta {\partial \over \partial ', r'\theta', r'}')
+        v2 = VGroup(m4, m5)
+        v2.arrange(DOWN)
+        for i, color in [(0, YELLOW), (2, MAROON), (4, MAROON)]:
+            m2[i].set_color(color)
+        for i, color in [(0, YELLOW), (2, BLUE), (4, BLUE)]:
+            m3[i].set_color(color)
+        for i, color in [(0, YELLOW), (2, MAROON), (4, MAROON), (6, MAROON), (8, MAROON)]:
+            m4[i].set_color(color)
+        for i, color in [(0, YELLOW), (2, BLUE), (4, BLUE), (6, BLUE), (8, BLUE)]:
+            m5[i].set_color(color)
+        self.play(Write(v1))
+        self.wait()
+        self.play(FadeTransform(v1, v2))
+        self.wait()
+        self.play(FadeTransform(v2, v1))
+        self.wait()
+        m6 = MathTex("{V'}", r'^\mu {\partial \over \partial ', "{x'}", r'^\mu}', '=', 'V', r'^\nu {\partial \over \partial ', 'x', r'^\nu}')
+        for i, color in [(0, BLUE), (2, BLUE), (5, MAROON), (-2, MAROON)]:
+            m6[i].set_color(color)
+        self.play(TransformMatchingTex(v1, m6, fade_transform_mismatches=True))
+        self.wait()
+        m7 = MathTex("{V'}", r'^\mu', r'{\partial \over \partial ', "{x'}", r'^\mu}', '=', 'V', r'^\nu {\partial ', r"{x'}", r'^\mu \over \partial ', 'x', r'^\nu}', r'{\partial \over \partial ', "{x'}", r'^\mu}')
+        for i, color in [(0, BLUE), (3, BLUE), (6, MAROON), (8, BLUE), (10, MAROON), (13, BLUE)]:
+            m7[i].set_color(color)
+        self.play(TransformMatchingTex(m6, m7))
+        self.wait()
+        self.play(FadeTransform(m7, m1))
+        self.wait()
 
 
